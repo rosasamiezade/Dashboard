@@ -4,17 +4,32 @@ import type { QueryFunctionContext } from "@tanstack/react-query";
 const API_BASE = "https://dummyjson.com";
 
 export const getAllProducts = async ({ queryKey }: QueryFunctionContext) => {
-  const [, limit, skip, category] = queryKey;
+  const [, limit, skip, category] = queryKey as [
+    string,
+    number,
+    number,
+    string?
+  ];
+
   const url =
     category && category !== "All"
-      ? `https://dummyjson.com/products/category/${category}?limit=${limit}&skip=${skip}`
+      ? `${API_BASE}/products/category/${category}?limit=${limit}&skip=${skip}`
       : `${API_BASE}/products?limit=${limit}&skip=${skip}`;
+
   const response = await axios.get(url);
   return response.data;
 };
+export const getTotalProductsAmount = async ({
+  queryKey,
+}: QueryFunctionContext) => {
+  const [, category] = queryKey;
 
-export const getTotalProductsAmount = async () => {
-  const response = await axios.get(`${API_BASE}/products?limit=0&skip=0`);
+  const url =
+    category && category !== "All"
+      ? `${API_BASE}/products/category/${category}?limit=0&skip=0`
+      : `${API_BASE}/products?limit=0&skip=0`;
+
+  const response = await axios.get(url);
   return response.data.total;
 };
 
