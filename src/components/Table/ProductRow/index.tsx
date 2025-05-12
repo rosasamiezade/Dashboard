@@ -1,7 +1,7 @@
 import * as Popover from "@radix-ui/react-popover";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useState } from "react";
-import type { IProductRowProps } from "../../../types/types";
+import type { IProductRowProps } from "../../../types";
 
 const ProductRow = ({
   brand = "unknown brand",

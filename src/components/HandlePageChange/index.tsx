@@ -1,4 +1,4 @@
-import type { IHandlePageChangeProps } from "../../types/types";
+import type { IHandlePageChangeProps } from "../../types";
 import PageNumberDropDown from "./PageNumber";
 import Pagination from "./Pagination";
 import { useMemo } from "react";

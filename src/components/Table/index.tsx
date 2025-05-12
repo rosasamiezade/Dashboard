@@ -1,20 +1,25 @@
 import Filter from "../Filter";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useProducts } from "../../hooks/useProducts.js";
 import { deleteProduct } from "../../services/api.js";
 import { useState } from "react";
 import HandlePageChange from "../HandlePageChange/index.js";
-import { useTotalProducts } from "../../hooks/useTotalProducts";
 import TableHead from "./TableHead/index.js";
 import TableBody from "./TableBody/index.js";
+import { useQuery } from "@tanstack/react-query";
+import { getTotalProductsAmount } from "../../services/api";
+import { getAllProducts } from "../../services/api.js";
+
 const Table = () => {
   const [pageNumber, setPageNumber] = useState(1);
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const limit = 10;
   const skip = (pageNumber - 1) * limit;
 
-  const { data: totalItems, isLoading: isTotalLoading } = useTotalProducts();
-
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const { data: totalItems, isLoading: isTotalLoading } = useQuery({
+    queryKey: ["total-products", selectedCategory],
+    queryFn: getTotalProductsAmount,
+  });
 
   const queryClient = useQueryClient();
 
@@ -22,7 +27,10 @@ const Table = () => {
     data: allProducts,
     isLoading,
     isError,
-  } = useProducts({ limit: limit, skip: skip, category: selectedCategory });
+  } = useQuery({
+    queryKey: ["products", limit, skip, selectedCategory],
+    queryFn: getAllProducts,
+  });
 
   const fetchedProducts = allProducts?.products;
 

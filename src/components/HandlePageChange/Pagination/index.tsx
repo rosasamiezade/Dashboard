@@ -1,4 +1,4 @@
-import type { IPageNumberDropDownProps } from "../../../types/types";
+import type { IPageNumberDropDownProps } from "../../../types";
 import { GrPrevious } from "react-icons/gr";
 import { GrNext } from "react-icons/gr";
 

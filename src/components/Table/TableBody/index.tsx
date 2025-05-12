@@ -1,5 +1,5 @@
-import type { ITableBodyProps } from "../../../types/types";
-import type { IProductRowProps } from "../../../types/types";
+import type { ITableBodyProps } from "../../../types";
+import type { IProductRowProps } from "../../../types";
 
 import ProductRow from "../ProductRow";
 const TableBody = ({ products, onDelete }: ITableBodyProps) => (

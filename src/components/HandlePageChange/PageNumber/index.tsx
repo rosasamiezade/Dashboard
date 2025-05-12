@@ -1,4 +1,4 @@
-import type { IPageNumberDropDownProps } from "../../../types/types";
+import type { IPageNumberDropDownProps } from "../../../types";
 
 const PageNumberDropDown = ({
   totalPages,
