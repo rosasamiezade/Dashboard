@@ -1,10 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useCategories } from "../../hooks/useCategories";
-import type { IFilterProps } from "../../types/types";
+import type { IFilterProps } from "../../types";
+import { getCategories } from "../../services/api";
+
 const Filter = ({ selectedCategory, setSelectedCategory }: IFilterProps) => {
   const [categoryState, setCategoryState] = useState(selectedCategory);
-  const { data: allCategories, isLoading, isError } = useCategories();
-
+  const {
+    data: allCategories,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: getCategories,
+  });
   if (isLoading) {
     return <div>loading ...</div>;
   }
